@@ -1,10 +1,11 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: plot.py
 # $Date: Wed Dec 04 13:16:27 2013 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
 
+from __future__ import print_function
 from sample import Sample
 from scipy.io import wavfile
 import matplotlib.pyplot as plt

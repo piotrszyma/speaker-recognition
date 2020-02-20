@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: plot-gmm.py
 # $Date: Tue Dec 10 16:14:53 2013 +0800

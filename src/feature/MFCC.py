@@ -4,11 +4,13 @@
 # Date: Wed Dec 25 20:26:12 2013 +0800
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
+from __future__ import print_function
+from __future__ import absolute_import
 POWER_SPECTRUM_FLOOR = 1e-100
 
 from numpy import *
 import numpy.linalg as linalg
-from utils import cached_func, diff_feature
+from .utils import cached_func, diff_feature
 
 
 def hamming(n):

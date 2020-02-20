@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: test-nperson.py
 # $Date: Fri Dec 27 03:08:25 2013 +0000
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import glob
 import traceback
 import sys
@@ -114,23 +115,23 @@ def predict_task(gmmset, x_test):
 
 def test_feature(feature_impl, X_train, y_train, X_test, y_test):
     start = time.time()
-    print 'calculating features...',
+    print('calculating features...', end=' ')
     worker = MultiProcessWorker(feature_impl)
     X_train = worker.run(X_train)
     del worker
     worker = MultiProcessWorker(feature_impl)
     X_test = worker.run(X_test)
     del worker
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
 
     start = time.time()
     gmmset = GMMSet()
-    print 'training ...' ,
+    print('training ...', end=' ')
     gmmset.fit(X_train, y_train)
     nr_correct = 0
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
 
-    print 'predicting...',
+    print('predicting...', end=' ')
     start = time.time()
     pool = multiprocessing.Pool(concurrency)
     predictions = []
@@ -141,7 +142,7 @@ def test_feature(feature_impl, X_train, y_train, X_test, y_test):
         label_pred = predictions[ind].get()
         if label_pred == label_true:
             nr_correct += 1
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
     print("{}/{} {:.6f}".format(nr_correct, len(y_test),
             float(nr_correct) / len(y_test)))
 def main():
@@ -156,7 +157,7 @@ def main():
     sys.stdout = fout
 
     for nr_person in [4, 6, 8, 10, 12, 14, 16, 18, 20, 25, 30, 40, 50, 60, 80]:
-        print "Nperson: ", nr_person
+        print("Nperson: ", nr_person)
         train_duration = 20
         test_duration = 5
         nr_test_fragment_per_person = 50

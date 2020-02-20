@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: test-feature.py
 # $Date: Wed Dec 11 22:01:13 2013 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import glob
 import traceback
 import sys
@@ -67,9 +68,9 @@ def do_test(X_train, y_train, X_test, y_test):
     print('training ...')
     gmmset.fit(X_train, y_train)
     nr_correct = 0
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
 
-    print 'predicting...'
+    print('predicting...')
     start = time.time()
     pool = multiprocessing.Pool(concurrency)
     predictions = []
@@ -81,7 +82,7 @@ def do_test(X_train, y_train, X_test, y_test):
         print("{} {}{}" . format(label_pred, label_true, is_wrong))
         if label_pred == label_true:
             nr_correct += 1
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
     print("{}/{} {:.2f}".format(nr_correct, len(y_test),
             float(nr_correct) / len(y_test)))
     pool.close()
@@ -110,7 +111,7 @@ def main():
                     mat.append(line)
             X_train.append(np.array(mat))
             y_train.append(label)
-    print "length of X_train: ", len(X_train)
+    print("length of X_train: ", len(X_train))
 
     X_test, y_test = [], []
     with open(os.path.join(dirs, 'test.lst')) as f:

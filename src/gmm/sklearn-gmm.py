@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: gmm.py
 # $Date: Tue Dec 10 11:36:41 2013 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 from sklearn.mixture import GMM
 
 
@@ -12,12 +13,12 @@ def read_data(fname):
         return map(lambda line: map(float, line.rstrip().split()), fin)
 
 def dump_gmm(gmm):
-    print gmm.n_components
-    print " " . join(map(str, gmm.weights_))
+    print(gmm.n_components)
+    print(" " . join(map(str, gmm.weights_)))
     for i in range(gmm.n_components):
-        print len(gmm.means_[i]), 1
-        print " " . join(map(str, gmm.means_[i]))
-        print " " . join(map(str, gmm.covars_[i]))
+        print(len(gmm.means_[i]), 1)
+        print(" " . join(map(str, gmm.means_[i])))
+        print(" " . join(map(str, gmm.covars_[i])))
 
 def main():
     gmm = GMM(3)

@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: plot-wav.py
 # $Date: Mon Dec 30 22:03:40 2013 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
 import sys
@@ -11,7 +12,7 @@ import numpy as np
 
 def main():
     if not(len(sys.argv) == 2 or len(sys.argv) == 4):
-        print "Usage: {} <wav_file> [<start_sec> <end_sec>]" .format(sys.argv[0])
+        print("Usage: {} <wav_file> [<start_sec> <end_sec>]" .format(sys.argv[0]))
         sys.exit(1)
 
     fs, signal = wavfile.read(sys.argv[1])

@@ -4,6 +4,8 @@
 # Date: Tue Feb 13 10:34:43 2018 -0800
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
+from __future__ import print_function
+from __future__ import absolute_import
 import time
 import os
 import sys
@@ -13,15 +15,15 @@ import numpy as np
 import cPickle as pickle
 import traceback as tb
 
-from feature import mix_feature
-from filters.VAD import VAD
+from .feature import mix_feature
+from .filters.VAD import VAD
 
 #try:
     #from gmmset import GMMSetPyGMM as GMMSet
     #from gmmset import GMM
 #except:
     #print >> sys.stderr, "Warning: failed to import fast-gmm, use gmm from scikit-learn instead"
-from skgmm import GMMSet, GMM
+from .skgmm import GMMSet, GMM
 
 CHECK_ACTIVE_INTERVAL = 1       # seconds
 
@@ -63,24 +65,24 @@ class ModelInterface(object):
     def _get_gmm_set(self):
         if self.UBM_MODEL_FILE and os.path.isfile(self.UBM_MODEL_FILE):
             try:
-                from gmmset import GMMSetPyGMM
+                from .gmmset import GMMSetPyGMM
                 if GMMSet is GMMSetPyGMM:
                     return GMMSet(ubm=GMM.load(self.UBM_MODEL_FILE))
             except Exception as e:
-                print "Warning: failed to import gmmset. You may forget to compile gmm:"
-                print e
-                print "Try running `make -C src/gmm` to compile gmm module."
-                print "But gmm from sklearn will work as well! Using it now!"
+                print("Warning: failed to import gmmset. You may forget to compile gmm:")
+                print(e)
+                print("Try running `make -C src/gmm` to compile gmm module.")
+                print("But gmm from sklearn will work as well! Using it now!")
             return GMMSet()
         return GMMSet()
 
     def train(self):
         self.gmmset = self._get_gmm_set()
         start = time.time()
-        print "Start training..."
+        print("Start training...")
         for name, feats in self.features.iteritems():
             self.gmmset.fit_new(feats, name)
-        print time.time() - start, " seconds"
+        print(time.time() - start, " seconds")
 
     def predict(self, fs, signal):
         """
@@ -89,7 +91,7 @@ class ModelInterface(object):
         try:
             feat = mix_feature((fs, signal))
         except Exception as e:
-            print tb.format_exc()
+            print(tb.format_exc())
             return None
         return self.gmmset.predict_one(feat)
 
@@ -116,4 +118,4 @@ if __name__ == "__main__":
     fs, signal = wavfile.read("../corpus.silence-removed/Style_Reading/f_003_03.wav")
     m.enroll('a', fs, signal[:80000])
     m.train()
-    print m.predict(fs, signal[:80000])
+    print(m.predict(fs, signal[:80000]))

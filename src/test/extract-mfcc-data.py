@@ -1,10 +1,11 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: extract-mfcc-data.py
 # $Date: Tue Dec 24 20:23:39 2013 +0000
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
 
+from __future__ import print_function
 from sample import Sample
 from scipy.io import wavfile
 import matplotlib.pyplot as plt
@@ -35,7 +36,7 @@ def get_mfcc_worker(params):
     mkdirp(os.path.dirname(outpath))
     with open(outpath, 'w') as fout:
         for x in mfcc:
-            print >> fout, " " . join(map(str, x))
+            print(" " . join(map(str, x)), file=fout)
 
 def extract_mfcc_data(dirname, mfcc_output_dir):
     pool = multiprocessing.Pool(concurrency)

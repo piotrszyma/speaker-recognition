@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: sigfilter.py
 # $Date: Sat Nov 30 17:57:47 2013 +0800

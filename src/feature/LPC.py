@@ -4,13 +4,15 @@
 # Date: Thu Mar 19 19:37:11 2015 +0800
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
+from __future__ import print_function
+from __future__ import absolute_import
 import time
 #import scikits.talkbox as tb
 from scikits.talkbox.linpred import levinson_lpc
 from numpy import *
 from scipy.io import  wavfile
-from MFCC import hamming
-from utils import cached_func, diff_feature
+from .MFCC import hamming
+from .utils import cached_func, diff_feature
 
 class LPCExtractor(object):
     def __init__(self, fs, win_length_ms, win_shift_ms, n_lpc,
@@ -79,6 +81,6 @@ if __name__ == "__main__":
     fs, signal = wavfile.read("../corpus.silence-removed/Style_Reading/f_001_03.wav")
     start = time.time()
     ret = extractor.extract(signal)
-    print len(ret)
-    print len(ret[0])
-    print time.time() - start
+    print(len(ret))
+    print(len(ret[0]))
+    print(time.time() - start)

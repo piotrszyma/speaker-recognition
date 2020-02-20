@@ -1,10 +1,12 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: test.py
 # $Date: Mon Dec 16 04:27:02 2013 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
-import pygmm
+from __future__ import print_function
+from __future__ import absolute_import
+from . import pygmm
 from sklearn.mixture import GMM as SKGMM
 from numpy import *
 import numpy as np

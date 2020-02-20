@@ -4,13 +4,14 @@
 # Date: Fri Dec 27 04:23:28 2013 +0800
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
+from __future__ import absolute_import
 import sys
 from scipy.io import wavfile
 import os
 from random import Random
-from silence import remove_silence
+from .silence import remove_silence
 
-from utils import monophonic
+from .utils import monophonic
 
 NOISE_WAV = "/tmp/noise.wav"
 NOISE_MODEL = "/tmp/noise.prof"

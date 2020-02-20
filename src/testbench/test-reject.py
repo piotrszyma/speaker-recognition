@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: test-reject.py
 # $Date: Fri Dec 27 03:24:35 2013 +0000
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import datautil
 from gmmset import GMM
 from gmmset import GMMSetPyGMM as GMMSet
@@ -49,14 +50,14 @@ def test_ubm_var_channel():
     gmmset.fit(X_train, y_train)
     y_pred = gmmset.predict_with_reject(X_test)
     for i in xrange(len(y_pred)):
-        print y_test[i], y_pred[i], '' if y_test[i] == y_pred[i] else 'wrong'
+        print(y_test[i], y_pred[i], '' if y_test[i] == y_pred[i] else 'wrong')
 
     for imposter_audio_file in map(
             lambda x: 'test-{}.wav'.format(x), range(5)):
         fs, signal = wavfile.read(imposter_audio_file)
         signal = monotize_signal(signal)
         imposter_x = mix_feature((fs, signal))
-        print gmmset.predict_one_with_rejection(imposter_x)
+        print(gmmset.predict_one_with_rejection(imposter_x))
 
 test_ubm_var_channel()
 import sys

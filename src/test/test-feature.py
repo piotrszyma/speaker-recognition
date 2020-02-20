@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: test-feature.py
 # $Date: Thu Dec 26 02:08:59 2013 +0000
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import glob
 import traceback
 import sys
@@ -119,23 +120,23 @@ def predict_task(gmmset, x_test):
 
 def test_feature(feature_impl, X_train, y_train, X_test, y_test):
     start = time.time()
-    print 'calculating features...',
+    print('calculating features...', end=' ')
     worker = MultiProcessWorker(feature_impl)
     X_train = worker.run(X_train)
     del worker
     worker = MultiProcessWorker(feature_impl)
     X_test = worker.run(X_test)
     del worker
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
 
     start = time.time()
     gmmset = GMMSet()
-    print 'training ...',
+    print('training ...', end=' ')
     gmmset.fit(X_train, y_train)
     nr_correct = 0
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
 
-    print 'predicting...',
+    print('predicting...', end=' ')
     start = time.time()
     pool = multiprocessing.Pool(concurrency)
     predictions = []
@@ -148,7 +149,7 @@ def test_feature(feature_impl, X_train, y_train, X_test, y_test):
         #print("{} {}{}" . format(label_pred, label_true, is_wrong))
         if label_pred == label_true:
             nr_correct += 1
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
     print("{}/{} {:.4f}".format(nr_correct, len(y_test),
             float(nr_correct) / len(y_test)))
 
@@ -194,7 +195,7 @@ def main():
         fname = "final-log/bob-nfilter.log"
         sys.stdout = open(fname, 'a')
         for n_f in [20, 25, 30, 35, 40, 45, 50, 55]:
-            print "MFCC NFILTER={}".format(n_f)
+            print("MFCC NFILTER={}".format(n_f))
             test_feature(get_extractor(BOB.extract, n_filters=n_f), X_train, y_train, X_test, y_test)
         sys.stdout.close()
 
@@ -202,7 +203,7 @@ def main():
         fname = "final-log/bob-nceps.log"
         sys.stdout = open(fname, 'a')
         for n_c in [13, 15, 17, 19, 23, 25]:
-            print "n_ceps={} MFCC NFILTER=55, WINL=32, WINS=16".format(n_c)
+            print("n_ceps={} MFCC NFILTER=55, WINL=32, WINS=16".format(n_c))
             test_feature(get_extractor(BOB.extract, n_ceps=n_c), X_train, y_train, X_test, y_test)
         sys.stdout.close()
 
@@ -210,7 +211,7 @@ def main():
         fname = "final-log/bob-win.log"
         sys.stdout = open(fname, 'a')
         for n_c in [20, 24, 28, 32, 36, 40]:
-            print "n_ceps=19 MFCC NFILTER=55, WINL={0}".format(n_c)
+            print("n_ceps=19 MFCC NFILTER=55, WINL={0}".format(n_c))
             test_feature(get_extractor(BOB.extract, win_length_ms=n_c, win_shift_ms=n_c/ 2), X_train, y_train, X_test, y_test)
         sys.stdout.close()
 
@@ -218,7 +219,7 @@ def main():
         fname = "final-log/lpc-win.log"
         sys.stdout = open(fname, 'a')
         for n_c in [20, 24, 28, 32, 36, 40]:
-            print "n_dim=15 LPC WINL={0}".format(n_c)
+            print("n_dim=15 LPC WINL={0}".format(n_c))
             test_feature(get_extractor(LPC.extract, win_length_ms=n_c, win_shift_ms=n_c/ 2), X_train, y_train, X_test, y_test)
         sys.stdout.close()
 
@@ -226,7 +227,7 @@ def main():
         fname = "final-log/lpc-dim.log"
         sys.stdout = open(fname, 'a')
         for n_c in [11, 13, 15, 17, 19, 23, 25]:
-            print "n_dim={} LPC WINL=32, WINS=16".format(n_c)
+            print("n_dim={} LPC WINL=32, WINS=16".format(n_c))
             test_feature(get_extractor(LPC.extract, n_lpc=n_c), X_train, y_train, X_test, y_test)
         sys.stdout.close()
 

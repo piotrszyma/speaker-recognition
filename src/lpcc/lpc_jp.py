@@ -4,6 +4,7 @@
 # Date: Sat Jan 04 11:48:02 2014 +0800
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
+from __future__ import print_function
 import numpy as np
 from pylab import *
 import scikits.talkbox as tb
@@ -70,7 +71,7 @@ if __name__ == "__main__":
         #original[i] = np.sin(i * 0.01) + 0.75 * np.sin(i * 0.03) + 0.5 * np.sin(i * 0.05) + 0.25 * np.sin(i * 0.11)
     fs, original = wavfile.read("a.wav")
 
-    print levinson_lpc.lpc(original, 16)
+    print(levinson_lpc.lpc(original, 16))
 
     lpcOrder = 16  # LPC係数の次数
 
@@ -78,13 +79,13 @@ if __name__ == "__main__":
     # r[0]からr[lpcOrder]までlpcOrder+1個必要
     r = autocorr(original, lpcOrder + 1)
     for i in range(lpcOrder + 1):
-        print "r[%d]: %f" % (i, r[i])
+        print("r[%d]: %f" % (i, r[i]))
 
     # Levinson-Durbinアルゴリズムを用いてLPC係数と最小誤差を計算
     a, e = LevinsonDurbin(r, lpcOrder)
-    print "*** result ***"
-    print "a:", a
-    print "e:", e
+    print("*** result ***")
+    print("a:", a)
+    print("e:", e)
 
     # LPCで前向き予測した信号を求める
     predicted = np.copy(original)

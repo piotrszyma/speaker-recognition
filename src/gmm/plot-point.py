@@ -1,5 +1,6 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
+from __future__ import print_function
 import numpy as np
 import matplotlib.pyplot as plt
 import argparse, sys
@@ -156,7 +157,7 @@ def main():
                         . format(lineno + 1))
         data_x.append(x)
         data_y.append(y)
-    print len(data_x)
+    print(len(data_x))
     if args.input != stdin_fname:
         fin.close()
 

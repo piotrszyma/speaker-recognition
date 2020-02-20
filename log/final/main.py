@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: main.py
 # $Date: Fri Jan 03 22:01:46 2014 +0800

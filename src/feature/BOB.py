@@ -4,9 +4,10 @@
 # Date: Wed Oct 29 22:38:35 2014 +0800
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
-from utils import cached_func, diff_feature
-import bob
-import bob.ap
+from __future__ import absolute_import
+from .utils import cached_func, diff_feature
+from . import bob
+from . import bob.ap
 import numpy
 
 @cached_func

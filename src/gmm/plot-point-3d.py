@@ -1,5 +1,6 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 
+from __future__ import print_function
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -193,7 +194,7 @@ def main():
         data_y.append(y)
         if z != None:
             data_z.append(z)
-    print len(data_x)
+    print(len(data_x))
     if args.input != stdin_fname:
         fin.close()
 

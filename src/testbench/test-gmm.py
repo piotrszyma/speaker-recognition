@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: test-gmm.py
 # $Date: Fri Dec 27 01:42:37 2013 +0000
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import os
 import glob
 
@@ -33,7 +34,7 @@ def load_gmmset(labels, nr_person):
         if base not in labels:
             continue
         if fname.endswith("32.model"):
-            print base, fname
+            print(base, fname)
             gmmset.load_gmm(base, fpath)
     return gmmset
 
@@ -43,7 +44,7 @@ def main():
     X_train, y_train, X_test, y_test = datautil.read_data(
             fpaths, nr_person)
 
-    print "loading gmms ..."
+    print("loading gmms ...")
     gmmset = load_gmmset(y_train, nr_person)
 
 #    print "training ..."
@@ -54,18 +55,18 @@ def main():
 #            threshold=1e-2)
 #    gmmset.fit(X_train, y_train)
 
-    print "predicting ..."
+    print("predicting ...")
     import time
     start = time.time()
     import cProfile
     y_pred = gmmset.predict(X_test)
-    print time.time() - start
+    print(time.time() - start)
 
     nr_total = len(y_test)
     nr_correct = len(filter(lambda x: x[0] == x[1], zip(y_pred, y_test)))
-    print "{} {}/{}" . format(
-        float(nr_correct) / nr_total, nr_correct, nr_total)
-    print "nr_person: {}" . format(nr_person)
+    print("{} {}/{}" . format(
+        float(nr_correct) / nr_total, nr_correct, nr_total))
+    print("nr_person: {}" . format(nr_person))
 
 if __name__ == '__main__':
     main()

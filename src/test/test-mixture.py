@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: test-mixture.py
 # $Date: Thu Dec 26 02:07:32 2013 +0000
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import glob
 import traceback
 import sys
@@ -113,25 +114,25 @@ def predict_task(gmmset, x_test):
 
 def test_feature(feature_impl, X_train, y_train, X_test, y_test):
     start = time.time()
-    print 'calculating features...',
+    print('calculating features...', end=' ')
     worker = MultiProcessWorker(feature_impl)
     X_train = worker.run(X_train)
     del worker
     worker = MultiProcessWorker(feature_impl)
     X_test = worker.run(X_test)
     del worker
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
 
     for mixture in [16, 32, 48, 64, 80, 96, 120, 144]:
         start = time.time()
         gmmset = GMMSet(mixture)
-        print "nmixture: ", mixture
-        print 'training ...',
+        print("nmixture: ", mixture)
+        print('training ...', end=' ')
         gmmset.fit(X_train, y_train)
         nr_correct = 0
-        print 'time elapsed: ', time.time() - start
+        print('time elapsed: ', time.time() - start)
 
-        print 'predicting...',
+        print('predicting...', end=' ')
         start = time.time()
         pool = multiprocessing.Pool(concurrency)
         predictions = []
@@ -142,7 +143,7 @@ def test_feature(feature_impl, X_train, y_train, X_test, y_test):
             label_pred = predictions[ind].get()
             if label_pred == label_true:
                 nr_correct += 1
-        print 'time elapsed: ', time.time() - start
+        print('time elapsed: ', time.time() - start)
         print("{}/{} {:.6f}".format(nr_correct, len(y_test),
                 float(nr_correct) / len(y_test)))
 

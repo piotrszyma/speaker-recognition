@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: train-ubm.py
 # $Date: Fri Dec 27 04:19:58 2013 +0000
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import multiprocessing
 
 import glob
@@ -20,10 +21,10 @@ def get_gmm():
     from sklearn.mixture import GMM as skGMM
     from gmmset import GMM as pyGMM
     if GMM == skGMM:
-        print 'using GMM from sklearn'
+        print('using GMM from sklearn')
         return GMM(nr_mixture)
     else:
-        print 'using pyGMM'
+        print('using pyGMM')
         return GMM(nr_mixture=nr_mixture, nr_iteration=500,
                 init_with_kmeans=0, concurrency=8,
                 threshold=1e-15,

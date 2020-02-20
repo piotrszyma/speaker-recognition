@@ -4,6 +4,7 @@
 # Date: Wed Dec 25 23:53:05 2013 +0800
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
+from __future__ import print_function
 import glob
 import traceback
 import sys
@@ -127,7 +128,7 @@ if __name__ == "__main__":
     random.shuffle(persons)
     dataset = DataSet()
 
-    print "generating enroll/test data..."
+    print("generating enroll/test data...")
     for p in persons[:nr_enroll]:
         fs, signal, begin, end = p.get_fragment_with_interval(enroll_duration)
         p.remove_subsignal(begin, end)

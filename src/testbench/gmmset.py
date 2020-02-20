@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: gmmset.py
 # $Date: Sun Feb 22 20:17:14 2015 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import absolute_import
 import operator
 import multiprocessing
 
@@ -11,7 +12,7 @@ from collections import defaultdict
 
 import numpy as np
 
-from gmm.python.pygmm import GMM
+from .gmm.python.pygmm import GMM
 
 class GMMSet(object):
     def __init__(self, gmm_order=32, ubm=None,

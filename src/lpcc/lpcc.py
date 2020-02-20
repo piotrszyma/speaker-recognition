@@ -4,6 +4,7 @@
 # Date: Wed Dec 25 13:05:40 2013 +0800
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
+from __future__ import print_function
 import time
 import scikits.talkbox as tb
 from scikits.talkbox.linpred import levinson_lpc
@@ -30,7 +31,7 @@ def lpc_to_cc(lpc):
 def lpcc(signal):
     #lpc = tb.lpc(signal, n_lpc)[0]
     lpc = levinson_lpc.lpc(signal, n_lpc)[0]
-    print lpc
+    print(lpc)
     lpcc = lpc_to_cc(lpc)
     return lpcc
 
@@ -39,7 +40,7 @@ def main():
 
     s = np.array([1, 2, 4, 3, 6, 7, 9, 13, 16, 22, 29, 38])
     out = lpcc(s)
-    print out
+    print(out)
 
 
 if __name__ == "__main__":

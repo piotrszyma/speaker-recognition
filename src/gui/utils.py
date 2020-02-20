@@ -5,6 +5,7 @@
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
 
+from __future__ import print_function
 from scipy.io import wavfile
 
 def read_wav(fname):
@@ -26,4 +27,4 @@ def monophonic(signal):
     return signal
 
 if __name__ == "__main__":
-    print time_str(100.0)
+    print(time_str(100.0))

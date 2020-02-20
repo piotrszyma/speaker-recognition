@@ -4,6 +4,7 @@
 # Date: Sun Feb 22 22:36:46 2015 +0800
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
+from __future__ import print_function
 import argparse
 import sys
 import glob
@@ -56,7 +57,7 @@ def task_enroll(input_dirs, output_model):
     dirs = [d for d in dirs if os.path.isdir(d)]
     files = []
     if len(dirs) == 0:
-        print "No valid directory found!"
+        print("No valid directory found!")
         sys.exit(1)
     training_stats = []
     for d in dirs:
@@ -64,20 +65,20 @@ def task_enroll(input_dirs, output_model):
 
         wavs = glob.glob(d + '/*.wav')
         if len(wavs) == 0:
-            print "No wav file found in {0}".format(d)
+            print("No wav file found in {0}".format(d))
             continue
-        print "Label '{0}' has files: {1}".format(label, ', '.join(wavs))
+        print("Label '{0}' has files: {1}".format(label, ', '.join(wavs)))
         total_len = 0
         for wav in wavs:
             fs, signal = read_wav(wav)
-            print "   File '{}' has frequency={} and length={}".format(wav, fs, len(signal))
+            print("   File '{}' has frequency={} and length={}".format(wav, fs, len(signal)))
             total_len += len(signal)
             m.enroll(label, fs, signal)
         training_stats.append((label, total_len))
-    print "--------------------------------------------"
+    print("--------------------------------------------")
     for label, total_len in training_stats:
-        print "Total length of training data for '{}' is {}".format(label, total_len)
-    print "For best accuracy, please make sure all labels have similar amount of training data!"
+        print("Total length of training data for '{}' is {}".format(label, total_len))
+    print("For best accuracy, please make sure all labels have similar amount of training data!")
 
     m.train()
     m.dump(output_model)
@@ -87,7 +88,7 @@ def task_predict(input_files, input_model):
     for f in glob.glob(os.path.expanduser(input_files)):
         fs, signal = read_wav(f)
         label = m.predict(fs, signal)
-        print f, '->', label
+        print(f, '->', label)
 
 if __name__ == '__main__':
     global args

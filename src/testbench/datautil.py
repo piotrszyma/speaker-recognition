@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: datautil.py
 # $Date: Wed Dec 25 01:10:24 2013 +0000
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import os
 import glob
 import random
@@ -50,7 +51,7 @@ def read_raw_data(pattern):
 
     X = []
     for fpath in fpaths:
-        print 'loading file {} ... ' . format(fpath)
+        print('loading file {} ... ' . format(fpath))
         X.extend(loadtxt(fpath))
     return X
 
@@ -67,7 +68,7 @@ def read_data(pattern, nr_person, shuffle=True):
     if shuffle:
         random.shuffle(fpaths)
     for fpath in fpaths[:nr_person]:
-        print 'reading {} ...' . format(fpath)
+        print('reading {} ...' . format(fpath))
         fname = os.path.basename(fpath)
         base, ext = os.path.splitext(fname)
         x_train, x_test = load_train_test(fpath,

@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: pygmm.py
 # $Date: Fri Dec 27 11:51:08 2013 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 from ctypes import *
 import os
 from os import path
@@ -113,7 +114,7 @@ class GMM(object):
         if ubm is None:
             pygmm.train_model(self.gmm, X_c, param_ptr)
         else:
-            print 'training from ubm ...'
+            print('training from ubm ...')
             pygmm.train_model_from_ubm(self.gmm, ubm.gmm, X_c, param_ptr)
 
 

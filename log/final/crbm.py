@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: crbm.py
 # $Date: Sun Dec 29 22:48:01 2013 +0800

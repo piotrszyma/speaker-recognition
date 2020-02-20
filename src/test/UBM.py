@@ -4,6 +4,7 @@
 # Date: Sun Dec 08 00:47:00 2013 +0800
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
+from __future__ import print_function
 import os
 import numpy
 import pypr.clustering.gmm as pypr_GMM
@@ -19,9 +20,9 @@ class UBM(object):
 
     def fit(self):
         l = len(self.samples)
-        print "Data Size: ", l
+        print("Data Size: ", l)
         self.samples = numpy.asarray(self.samples)
-        print "start fitting..."
+        print("start fitting...")
         self.means, self.covars, \
                 self.weights, self.logl = pypr_GMM.em_gm(self.samples, K=self.n_comp, max_iter=self.n_iter,
                        verbose=True, diag_add=1e-9)

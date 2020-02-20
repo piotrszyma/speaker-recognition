@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: VAD.py
 # $Date: Thu Dec 26 13:39:12 2013 +0800
@@ -6,6 +6,7 @@
 
 # Voice Activity Detectionreturn fs, new_signal
 
+from __future__ import print_function
 import numpy as np
 import sys
 from numpy import *
@@ -35,13 +36,13 @@ class LTSV(object):
         k_end = self.nr_dft * 4000 / fs
         omega = arange(K) / float(K) * (4000 - 500) + 500
 
-        print K, k_start, k_end
+        print(K, k_start, k_end)
 
         if signal.ndim > 1:
 #            self.dprint("LTSV: Input signal has more than 1 channel; the channels will be averaged.")
 #            signal = mean(signal, axis=1)
             signal = array(zip(*signal)[0])
-            print signal
+            print(signal)
 
         frame_length = self.frame_duration * fs
         frame_shift = self.frame_time_shift * fs
@@ -71,11 +72,11 @@ class LTSV(object):
                 ax1.set_title('Signal {:.2f}s ~ {:.2f}s' . format(
                     frame_start_pos / float(fs), frame_end_pos / float(fs)))
                 nr_pt_plot = 10
-                print s[:nr_pt_plot]
-                print x[:nr_pt_plot]
-                print (x / sum(x))[:nr_pt_plot]
-                print log(s[:nr_pt_plot])
-                print log(s[:nr_pt_plot]) * s[:nr_pt_plot]
+                print(s[:nr_pt_plot])
+                print(x[:nr_pt_plot])
+                print((x / sum(x))[:nr_pt_plot])
+                print(log(s[:nr_pt_plot]))
+                print(log(s[:nr_pt_plot]) * s[:nr_pt_plot])
                 ax2.plot(omega[:nr_pt_plot], s[:nr_pt_plot])
                 ax2.set_title('Spectrum')
                 ax3.plot(omega[:nr_pt_plot], x[:nr_pt_plot])
@@ -151,7 +152,7 @@ class VAD(object):
 #            signal = mean(signal, axis=1)
             signal = array(zip(*signal)[0])
 
-        print 'signal length: ', len(signal)
+        print('signal length: ', len(signal))
 
         silence_padding_size = int(fs * self.silence_padding_duration)
         silence_padding = [0] * silence_padding_size
@@ -240,12 +241,12 @@ class VAD(object):
             l, r = interval
 #            print l, r, cur_left, cur_right
             if l > cur_right:
-                print cur_left, cur_right
+                print(cur_left, cur_right)
                 new_signal.extend(list(signal[cur_left: cur_right]))
                 cur_left, cur_right = l, r
             else:
                 cur_right = r
-        print cur_left, cur_right
+        print(cur_left, cur_right)
         new_signal.extend(list(signal[cur_left: cur_right]))
         return fs, signal # np.array(new_signal)
 

@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: vad-test.py
 # $Date: Sun Nov 24 21:35:13 2013 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 from sample import Sample
 from collections import defaultdict
 import numpy as np
@@ -118,7 +119,7 @@ def main():
     vad = VAD.VAD()
     fs, new_signal = vad.vad(fs, signal)
 
-    print 'fs =', fs
+    print('fs =', fs)
     wavfile.write('/tmp/orig.wav', fs, signal)
     wavfile.write('/tmp/x.wav', fs, new_signal)
     plt.figure()

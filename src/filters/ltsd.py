@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: ltsd.py
 # $Date: Sun Jul 19 17:53:59 2015 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import sys
 from scipy.io import wavfile
 import matplotlib
@@ -39,9 +40,9 @@ class LTSD_VAD(object):
         max_ltsd = max(ltsds)
         self.lambda0 = max_ltsd * 1.1
         self.lambda1 = self.lambda0 * 2.0
-        print 'max_ltsd =', max_ltsd
-        print 'lambda0 =', self.lambda0
-        print 'lambda1 =', self.lambda1
+        print('max_ltsd =', max_ltsd)
+        print('lambda0 =', self.lambda0)
+        print('lambda1 =', self.lambda1)
 
     def plot_ltsd(self, fs, signal):
         signal = self._mononize_signal(signal)
@@ -55,7 +56,7 @@ class LTSD_VAD(object):
         voice_signals = []
         res = [(start * self.window_size / 2, (finish + 1) * self.window_size
                 / 2) for start, finish in res]
-        print res, len(ltsds) * self.window_size / 2
+        print(res, len(ltsds) * self.window_size / 2)
         for start, finish in res:
             voice_signals.append(signal[start:finish])
         try:

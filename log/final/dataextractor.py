@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: dataextractor.py
 # $Date: Sun Dec 29 21:45:53 2013 +0800

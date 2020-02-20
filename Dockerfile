@@ -61,7 +61,7 @@ RUN apt-get update && \
 # Set timezone
 # https://bugs.launchpad.net/ubuntu/+source/tzdata/+bug/1554806
 ###############################################################################
-RUN rm /etc/localtime && echo "Australia/Sydney" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
+RUN rm /etc/localtime && echo "Poland/Warsaw" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
 
 
 # Create the GUI User
@@ -81,15 +81,14 @@ RUN useradd -m $USERNAME && \
     groupmod --gid 1000 $USERNAME
 
 
-# Python 2
+# Python 3
 ###############################################################################
-RUN apt-get update && apt-get install -y python python-pip && \
-    pip2 list --outdated | cut -d' ' -f1 | xargs -n 1 pip2 install --upgrade
+RUN apt-get update && apt-get install -y python3 python3-pip
 
 
 # Base Dependencies
 ###############################################################################
-RUN apt-get install -y portaudio19-dev libopenblas-base libopenblas-dev pkg-config git-core cmake python-dev liblapack-dev libatlas-base-dev libblitz0-dev libboost-all-dev libhdf5-serial-dev libqt4-dev libsvm-dev libvlfeat-dev  python-nose python-setuptools python-imaging build-essential libmatio-dev python-sphinx python-matplotlib python-scipy
+RUN apt-get install -y portaudio19-dev libopenblas-base libopenblas-dev pkg-config git-core cmake python-dev liblapack-dev libatlas-base-dev libboost-all-dev libhdf5-serial-dev libqt4-dev libsvm-dev libvlfeat-dev  python-nose python-setuptools build-essential libmatio-dev python-sphinx python-matplotlib python-scipy
 # additional dependencies for bob
 RUN apt-get install -y libfftw3-dev libtiff5-dev libgif-dev libpng-dev libjpeg-dev
 
@@ -97,13 +96,34 @@ RUN apt-get install -y libfftw3-dev libtiff5-dev libgif-dev libpng-dev libjpeg-d
 # https://gitlab.idiap.ch/bob/bob/wikis/Dependencies
 # Takes a very long time to install python packages because compilation is happening in the background
 ###############################################################################
-RUN pip2 install scipy scikit-learn scikits.talkbox numpy pyside pyssp PyAudio argparse h5py
-RUN pip2 install bob.extension
-RUN pip2 install bob.blitz
-RUN pip2 install bob.core
-RUN pip2 install bob.io.base
-RUN pip2 install bob.bio.spear
-RUN pip2 install bob.sp
+
+RUN apt-get -qq update && apt-get -qq -y install curl bzip2 \
+    && curl -sSL https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
+    && bash /tmp/miniconda.sh -bfp /usr/local \
+    && rm -rf /tmp/miniconda.sh \
+    && conda install -y python=3 \
+    && conda update conda \
+    && apt-get -qq -y remove curl bzip2 \
+    && apt-get -qq -y autoremove \
+    && apt-get autoclean \
+    && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log \
+    && conda clean --all --yes
+ENV PATH /opt/conda/bin:$PATH
+
+RUN conda install numpy
+RUN conda install scipy 
+RUN conda install scikit-learn
+RUN conda install PyAudio
+RUN conda install h5py
+RUN conda install -c conda-forge/label/broken bob.extension
+RUN conda install -c conda-forge/label/broken bob.blitz
+RUN conda install -c conda-forge/label/broken bob.core
+RUN conda install -c conda-forge/label/broken bob.io.base
+RUN conda install -c conda-forge/label/broken bob.bio.spear
+RUN conda install -c conda-forge/label/broken bob.sp
+
+RUN pip3 install PySide2
+RUN pip3 install argparse
 
 
 # Realtime Speaker Recognition

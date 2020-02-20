@@ -5,6 +5,8 @@
 # Author: Yuxin Wu <ppwwyyxxc@gmail.com>
 
 
+from __future__ import print_function
+from __future__ import absolute_import
 import sys
 import shutil
 import os.path
@@ -19,8 +21,8 @@ from PyQt4.QtGui import *
 from PyQt4 import QtCore,QtGui
 
 import pyaudio
-from utils import read_wav, write_wav, time_str, monophonic
-from interface import ModelInterface
+from .utils import read_wav, write_wav, time_str, monophonic
+from .interface import ModelInterface
 
 FORMAT=pyaudio.paInt16
 NPDtype = 'int16'
@@ -189,8 +191,8 @@ class Main(QMainWindow):
             if len(signal) > 50:
                 label = self.backend.predict(Main.FS, signal, True)
         except Exception as e:
-            print traceback.format_exc()
-            print str(e)
+            print(traceback.format_exc())
+            print(str(e))
 
         global last_label_to_show
         label_to_show = label
@@ -200,7 +202,7 @@ class Main(QMainWindow):
                 label_to_show = last_label_to_show
         self.conv_result_list.append(label)
 
-        print label_to_show, "label to show"
+        print(label_to_show, "label to show")
         last_label_to_show = label_to_show
 
         #ADD FOR GRAPH
@@ -228,7 +230,7 @@ class Main(QMainWindow):
         label = self.backend.predict(fs, signal)
         if not label:
             label = "Nobody"
-        print label
+        print(label)
         self.recoUsername.setText(label)
         self.Alading.setPixmap(QPixmap(u"image/a_result.png"))
         self.recoUserImage.setPixmap(self.get_avatar(label))
@@ -238,7 +240,7 @@ class Main(QMainWindow):
 
     def reco_remove_update(self, fs, signal):
         new_signal = self.backend.filter(fs, signal)
-        print "After removed: {0} -> {1}".format(len(signal), len(new_signal))
+        print("After removed: {0} -> {1}".format(len(signal), len(new_signal)))
         self.recoRecordData = np.concatenate((self.recoRecordData, new_signal))
         real_len = float(len(self.recoRecordData)) / Main.FS / Main.TEST_DURATION * 100
         if real_len > 100:
@@ -249,7 +251,7 @@ class Main(QMainWindow):
 
     def reco_file(self):
         fname = QFileDialog.getOpenFileName(self, "Open Wav File", "", "Files (*.wav)")
-        print 'reco_file'
+        print('reco_file')
         if not fname:
             return
         self.status(fname)
@@ -259,12 +261,12 @@ class Main(QMainWindow):
 
     def reco_files(self):
         fnames = QFileDialog.getOpenFileNames(self, "Select Wav Files", "", "Files (*.wav)")
-        print 'reco_files'
+        print('reco_files')
         for f in fnames:
             fs, sig = read_wav(f)
             newsig = self.backend.filter(fs, sig)
             label = self.backend.predict(fs, newsig)
-            print f, label
+            print(f, label)
 
     ########## ENROLL
     def start_enroll_record(self):
@@ -284,7 +286,7 @@ class Main(QMainWindow):
 
     def stop_enroll_record(self):
         self.stop_record()
-        print self.recordData[:300]
+        print(self.recordData[:300])
         signal = np.array(self.recordData, dtype=NPDtype)
         self.enrollWav = (Main.FS, signal)
 
@@ -298,10 +300,10 @@ class Main(QMainWindow):
             return
 #        self.addUserInfo()
         new_signal = self.backend.filter(*self.enrollWav)
-        print "After removed: {0} -> {1}".format(len(self.enrollWav[1]), len(new_signal))
-        print "Enroll: {:.4f} seconds".format(float(len(new_signal)) / Main.FS)
+        print("After removed: {0} -> {1}".format(len(self.enrollWav[1]), len(new_signal)))
+        print("Enroll: {:.4f} seconds".format(float(len(new_signal)) / Main.FS))
         if len(new_signal) == 0:
-            print "Error! Input is silent! Please enroll again"
+            print("Error! Input is silent! Please enroll again")
             return
         self.backend.enroll(name, Main.FS, new_signal)
 
@@ -445,7 +447,7 @@ class Main(QMainWindow):
         self.avatars = {}
         for f in glob.glob(dirname + '/*.jpg'):
             name = os.path.basename(f).split('.')[0]
-            print f, name
+            print(f, name)
             self.avatars[name] = QPixmap(f)
 
     def get_avatar(self, username):
@@ -457,9 +459,9 @@ class Main(QMainWindow):
 
     def printDebug(self):
         for name, feat in self.backend.features.iteritems():
-            print name, len(feat)
-        print "GMMs",
-        print len(self.backend.gmmset.gmms)
+            print(name, len(feat))
+        print("GMMs", end=' ')
+        print(len(self.backend.gmmset.gmms))
     '''
     def TempButton(self):
         import random

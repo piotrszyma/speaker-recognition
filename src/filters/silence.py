@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: silence.py
 # $Date: Tue Jun 10 15:18:40 2014 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import sys
 import scipy.io.wavfile as wavfile
 import numpy as np
@@ -32,7 +33,7 @@ def remove_silence(fs, signal,
     #       so the energy of the signal is somewhat
     #       right
     average_energy = np.sum(signal ** 2) / float(siglen)
-    print average_energy
+    print(average_energy)
     #print "Avg Energy: ", average_energy
     while i < siglen:
         subsig = signal[i:i + frame_length]

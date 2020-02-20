@@ -1,9 +1,10 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: test-gmm.py
 # $Date: Mon Dec 16 00:40:20 2013 +0800
 # $Author: Xinyu Zhou <zxytim[at]gmail[dot]com>
 
+from __future__ import print_function
 import glob
 import traceback
 import sys
@@ -121,9 +122,9 @@ def test_gmm(X_train, y_train, X_test, y_test):
     print('training NEW gmm...')
     gmmset.fit(X_train, y_train)
     nr_correct = 0
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
 
-    print 'predicting...'
+    print('predicting...')
     start = time.time()
     predictions = []
     pool = multiprocessing.Pool(concurrency)
@@ -135,7 +136,7 @@ def test_gmm(X_train, y_train, X_test, y_test):
         #print("{} {}{}" . format(label_pred, label_true, is_wrong))
         if label_pred == label_true:
             nr_correct += 1
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
     print("{}/{} {:.4f}".format(nr_correct, len(y_test),
             float(nr_correct) / len(y_test)))
     pool.terminate()
@@ -146,9 +147,9 @@ def test_gmm(X_train, y_train, X_test, y_test):
     print('training OLD gmm...')
     gmmset.fit(X_train, y_train)
     nr_correct = 0
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
 
-    print 'predicting...'
+    print('predicting...')
     start = time.time()
     predictions = []
     pool = multiprocessing.Pool(concurrency)
@@ -160,7 +161,7 @@ def test_gmm(X_train, y_train, X_test, y_test):
         #print("{} {}{}" . format(label_pred, label_true, is_wrong))
         if label_pred == label_true:
             nr_correct += 1
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
     print("{}/{} {:.2f}".format(nr_correct, len(y_test),
             float(nr_correct) / len(y_test)))
     pool.terminate()
@@ -203,19 +204,19 @@ def main():
     mfcc_impl = bob_19_6000_40
     start = time.time()
     print('calculating features...')
-    print 'bob MFCC 19 6000 40'
+    print('bob MFCC 19 6000 40')
     pool = multiprocessing.Pool(concurrency)
     X_train = pool.map(mfcc_impl, X_train)
     pool.terminate()
     pool = multiprocessing.Pool(concurrency)
     X_test = pool.map(mfcc_impl, X_test)
     pool.terminate()
-    print 'time elapsed: ', time.time() - start
+    print('time elapsed: ', time.time() - start)
 
     test_gmm(X_train, y_train, X_test, y_test)
 
     print(dirs)
-    print(nr_person, train_duration, test_duration, nr_test_fragment_per_person)
+    print((nr_person, train_duration, test_duration, nr_test_fragment_per_person))
 
 if __name__ == '__main__':
     main()

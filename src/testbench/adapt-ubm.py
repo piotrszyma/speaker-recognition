@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # $File: adapt-ubm.py
 # $Date: Thu Dec 26 14:44:08 2013 +0000
